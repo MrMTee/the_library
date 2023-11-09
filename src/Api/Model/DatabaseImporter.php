@@ -20,7 +20,7 @@ class DatabaseImporter
 
         $entity = (new MovieEntity())
             ->setTitle($movie->Title)
-            ->setImdbID($movie->ImdbID);
+            ->setImdbID($movie->imdbID);
 
         $this->entityManager->persist($entity);
         $this->entityManager->flush();

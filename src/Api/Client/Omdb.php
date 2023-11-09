@@ -26,13 +26,8 @@ class Omdb implements ApiClientInterface
 
     public function getById($id): Movie
     {
-
         $result = $this->init('i', $id)->toArray();
-
-        return new Movie(
-            Title: $result['Title'],
-            ImdbID: $result['imdbID']
-        );
+        return new Movie(...$result);
     }
 
     public function search($string): array
@@ -41,18 +36,18 @@ class Omdb implements ApiClientInterface
         try {
 
             $results = $this->init('s', $string)->toArray()['Search'];
-
+            
         } catch (Throwable $throwable) {
             
             throw $throwable;
             
         }
-
+        $results = array_map(fn($result) => $this->getById($result['imdbID']), $results);
         return array_reduce(
             $results,
-            static function ($movieRaw, $result) {
-                $movieRaw[$result['imdbID']] = "{$result['Title']}";
-                return $movieRaw;
+            static function ($movie, $result) {
+                $movie[$result->imdbID] = "{$result->Title}, {$result->Director} - {$result->Year}";
+                return $movie;
             }
         );;
     }

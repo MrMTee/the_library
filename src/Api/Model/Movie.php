@@ -8,7 +8,11 @@ final class Movie
 {
     public function __construct(
         public readonly string $Title,
-        public readonly string $ImdbID
+        public readonly string $imdbID,
+        public readonly string $Director,
+        public readonly string $Year,
+        public readonly string $Plot = '',
+        ...$params
     ) {
     }
 }
