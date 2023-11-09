@@ -51,10 +51,10 @@ class OmdbImportCommand extends Command
          */
         $choice = $io->choice(
             'Which of these result do you want to import ?',
-            $this->client->search($search)
+            $this->omdbApiClient->search($search)
         );
 
-        $this->importer->import($this->client->getById($choice));
+        $this->importer->import($this->omdbApiClient->getById($choice));
     
 
         $io->success('Success');
