@@ -1,0 +1,8 @@
+framework:
+  http_client:
+    scoped_clients:
+      omdb.api.client:
+        base_uri: 'http://www.omdbapi.com/'
+          query:
+            apikey: '4cc8fc26'
+            type: 'movie'
