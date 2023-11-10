@@ -11,8 +11,8 @@ final class Movie
         public readonly string $imdbID,
         public readonly string $Director,
         public readonly string $Year,
-        public readonly string $Plot = '',
         public readonly string $Poster,
+        public readonly string $Plot = '',
         ...$params
     ) {
     }
