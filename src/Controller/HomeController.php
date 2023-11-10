@@ -16,10 +16,17 @@ class HomeController extends AbstractController
     ) {
     }
 
-    #[Route('/home', name: 'app_home')]
+    #[Route('/', name: 'app_home')]
     public function index(): Response
     {
+        return $this->render('base.html.twig', [
+            'movies' => $this->movieRepository->findAll(),
+        ]);
+    }
 
+    #[Route('/movies', name: 'movies_list')]
+    public function listMovies(): Response
+    {
         return $this->render('home/index.html.twig', [
             'movies' => $this->movieRepository->findAll(),
         ]);
