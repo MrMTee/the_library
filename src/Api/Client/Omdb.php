@@ -36,13 +36,24 @@ class Omdb implements ApiClientInterface
         try {
 
             $results = $this->init('s', $string)->toArray()['Search'];
-            
+            usort(
+                $results,
+                function ($a, $b) {
+                    if (isset($a['Year'])) {
+                        if ($a['Year'] < $b['Year']) {
+                            return 1;
+                        } elseif ($a['Year'] > $b['Year']) {
+                            return -1;
+                        }
+                    }
+                    return 0;
+                }
+            );
         } catch (Throwable $throwable) {
-            
+
             throw $throwable;
-            
         }
-        $results = array_map(fn($result) => $this->getById($result['imdbID']), $results);
+        $results = array_map(fn ($result) => $this->getById($result['imdbID']), $results);
         return array_reduce(
             $results,
             static function ($movie, $result) {
