@@ -5,10 +5,21 @@
 {% block body %}
 
 	<div class="example-wrapper">
-		<ul>
+		<div class="card-group">
+
 			{% for movie in movies %}
-			    <li>{{ movie.title }}</li>
+				<div class="col-md-3">
+					<div class="card">
+						<img class="card-img-top" src='{{movie.poster}}'/>
+						<div class="card-body">
+							<h2 class="card-title">{{ movie.title }}</h2>
+							<span>{{ movie.director }} - {{ movie.year|date('Y') }}</span>
+							<p>{{ movie.plot }}</p>
+						</div>
+					</div>
+				</div>
 			{%endfor  %}
-		</ul>
+
+		</div>
 	</div>
 {% endblock %}
