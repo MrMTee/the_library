@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Model\Followup;
 use App\Repository\BookRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,8 +18,19 @@ class BookController extends AbstractController
     #[Route('/books', name: 'books_list')]
     public function listMovies(): Response
     {
-        return $this->render('book/books.html.twig', [
-            'books' => $this->bookRepository->findAll(),
-        ]);
+
+        $sections = array_map(
+            function ($state) {
+                $books = $this->bookRepository->findByFollowUp($state);
+                foreach($books as $book){
+                    dump($book->getMovies());
+                }
+                return $books;
+            },
+            array_column(Followup::cases(), 'value', 'value')
+        );
+
+        return $this->render('book/books.html.twig',
+        ['sections' => $sections]);
     }
 }

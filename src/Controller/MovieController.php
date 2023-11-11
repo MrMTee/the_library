@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Api\Client\ApiClientInterface;
 use App\Entity\Movie;
+use App\Model\Followup;
 use App\Repository\MovieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,8 +20,28 @@ class MovieController extends AbstractController
     #[Route('/movies', name: 'movies_list')]
     public function listMovies(): Response
     {
-        return $this->render('movie/movies.html.twig', [
-            'movies' => $this->movieRepository->findAll(),
+        $sections = array_map(
+            function ($state) {
+                $movies = $this->movieRepository->findByFollowUp($state);
+                foreach($movies as $movie){
+                    dump($movie->getBooks());
+                }
+                return $movies;
+            },
+            array_column(Followup::cases(), 'value', 'value')
+        );
+
+        return $this->render(
+            'movie/movies.html.twig',
+            ['sections' => $sections]
+        );
+    }
+
+    #[Route('/movie/{id}', name: 'movie_details')]
+    public function movieDetails($id)
+    {
+        return $this->render('movie/movie.html.twig', [
+            'movie' => $this->movieRepository->find($id)
         ]);
     }
 }
