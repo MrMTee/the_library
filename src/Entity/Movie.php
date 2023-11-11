@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Model\Followup;
 use App\Repository\MovieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -36,6 +37,9 @@ class Movie
 
     #[ORM\ManyToMany(targetEntity: Book::class, mappedBy: 'Movies')]
     private Collection $books;
+
+    #[ORM\Column(length: 255, enumType: Followup::class, options: ['default' => 'Todo'], nullable: true)]
+    private ?Followup $FollowUp = null;
 
     public function __construct()
     {
@@ -142,6 +146,18 @@ class Movie
         if ($this->books->removeElement($book)) {
             $book->removeMovie($this);
         }
+
+        return $this;
+    }
+
+    public function getFollowUp(): ?Followup
+    {
+        return $this->FollowUp;
+    }
+
+    public function setFollowUp(?Followup $FollowUp): static
+    {
+        $this->FollowUp = $FollowUp;
 
         return $this;
     }

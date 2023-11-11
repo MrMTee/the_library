@@ -2,10 +2,10 @@
 
 namespace App\Model;
 
-enum Followup
+enum Followup: string
 {
-    case Todo;
-    case Done;
+    case Todo = 'Todo';
+    case Done = 'Done';
 
     public function label($type){
 
