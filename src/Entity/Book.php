@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Model\Followup;
 use App\Repository\BookRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -21,9 +22,17 @@ class Book
     #[ORM\ManyToMany(targetEntity: Movie::class, inversedBy: 'books')]
     private Collection $Movies;
 
+    #[ORM\Column(length: 255, enumType: Followup::class, options: ['default' => 'Todo'], nullable: true)]
+    private ?Followup $FollowUp = null;
+
     public function __construct()
     {
         $this->Movies = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->Title;   
     }
 
     public function getId(): ?int
@@ -63,6 +72,18 @@ class Book
     public function removeMovie(Movie $movie): static
     {
         $this->Movies->removeElement($movie);
+
+        return $this;
+    }
+
+    public function getFollowUp(): ?Followup
+    {
+        return $this->FollowUp;
+    }
+
+    public function setFollowUp(?Followup $FollowUp): static
+    {
+        $this->FollowUp = $FollowUp;
 
         return $this;
     }
