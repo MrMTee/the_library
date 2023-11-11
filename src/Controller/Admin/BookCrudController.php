@@ -23,8 +23,7 @@ class BookCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield TextField::new('title');
-        yield AssociationField::new('movies')
-        ->autocomplete();
+        yield AssociationField::new('Movies');
      
     }
 }
