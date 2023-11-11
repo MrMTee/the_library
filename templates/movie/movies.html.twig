@@ -1,27 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Movies list{% endblock %}
+{% block title %}Movies list
+<a class='btn btn-primary float-end' href="admin?crudAction=index&crudControllerFqcn=App%5CController%5CAdmin%5CMovieCrudController">Movies dashboard</a>{% endblock %}
 
 {% block body %}
 
+			{% for section, movies in sections %}
+			
+				<h2>{{ section }}</h2>
 		<div class="card-group">
-
-			{% for movie in movies %}
-				<div class="col-md-3">
-					<div class="card">
-						<div class="card-img--wrapper">
-							<img class="card-img-top" src='{{movie.poster}}'/>
-						</div>
-						<div class="card-body">
-							<h2 class="card-title">{{ movie.title }}</h2>
-							<span>{{ movie.director }}
-								-
-								{{ movie.year|date('Y') }}</span>
-							<p>{{ movie.plot }}</p>
+				{% for movie in movies %}
+					<div class="col-md-3">
+						<div class="card">
+							<div class="card-img--wrapper">
+								<img class="card-img-top" src='{{movie.poster}}'/>
+							</div>
+							<div class="card-body">
+								<h2 class="card-title">{{ movie.title }}</h2>
+								<span>{{ movie.director }}
+									-
+									{{ movie.year|date('Y') }}</span>
+								<p>{{ movie.plot }}</p>
+								<a class="btn btn-primary" href="movie/{{ movie.id }}">View more</a>
+							</div>
 						</div>
 					</div>
-				</div>
-			{% endfor %}
+				{% endfor %}
 
 		</div>
+			{% endfor %}
+
 {% endblock %}

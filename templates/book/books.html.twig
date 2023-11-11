@@ -1,37 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Books list
-{% endblock %}
+<a class='btn btn-primary float-end' href="admin?crudAction=index&crudControllerFqcn=App%5CController%5CAdmin%5CBookCrudController">Books dashboard</a>{% endblock %}
 
 {% block body %}
 
+			{% for section, books in sections %}
+				<h2>{{ section }}</h2>
 	<div class="card-group">
 
 		{% for book in books %}
 			<div class="col-md-3">
 				<div class="card">
 					<div
-						class="card-img--wrapper">{#
-														<img class="card-img-top" src='{{book.poster}}'/>
-							
-														#}
+						class="card-img--wrapper">
 					</div>
 					<div class="card-body">
 						<h2 class="card-title">{{ book.title }}</h2>
-						<span>
-						{#
-						
-						{{ movie.director }}
-							-
-							{{ movie.year|date('Y') }}
-						#}
-							
-						</span>
+						<span></span>
 						<p>
-						{#
-						
-						{{ movie.plot }}
-						#}
 						</p>
 					</div>
 				</div>
@@ -39,4 +26,5 @@
 		{% endfor  %}
 
 	</div>
+			{% endfor %}
 {% endblock %}
