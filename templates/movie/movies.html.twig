@@ -1,25 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{% endblock %}
+{% block title %}Movies list{% endblock %}
 
 {% block body %}
 
-	<div class="example-wrapper">
 		<div class="card-group">
 
 			{% for movie in movies %}
 				<div class="col-md-3">
 					<div class="card">
-						<img class="card-img-top" src='{{movie.poster}}'/>
+						<div class="card-img--wrapper">
+							<img class="card-img-top" src='{{movie.poster}}'/>
+						</div>
 						<div class="card-body">
 							<h2 class="card-title">{{ movie.title }}</h2>
-							<span>{{ movie.director }} - {{ movie.year|date('Y') }}</span>
+							<span>{{ movie.director }}
+								-
+								{{ movie.year|date('Y') }}</span>
 							<p>{{ movie.plot }}</p>
 						</div>
 					</div>
 				</div>
-			{%endfor  %}
+			{% endfor %}
 
 		</div>
-	</div>
 {% endblock %}
