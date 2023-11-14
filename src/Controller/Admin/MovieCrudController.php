@@ -4,12 +4,16 @@ namespace App\Controller\Admin;
 
 use App\Entity\Movie;
 use App\Model\Followup;
+use DateTimeImmutable;
+use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
@@ -25,8 +29,7 @@ class MovieCrudController extends AbstractCrudController
         $list = Action::new('seeList')
             ->linkToRoute('movies_list')
             ->createAsGlobalAction();
-        return $actions
-            ->add(Crud::PAGE_INDEX, $list);
+        return $actions->add(Crud::PAGE_INDEX, $list);
     }
 
 
@@ -34,11 +37,13 @@ class MovieCrudController extends AbstractCrudController
     {
         
         yield TextField::new('title');
+        yield TextField::new('director');
         yield TextEditorField::new('plot');
+        yield AssociationField::new('books');
+        yield DateField::new('year');
         yield ChoiceField::new('followup')->setChoices(
             Followup::cases()
         );
-        yield AssociationField::new('books');
     }
 
 }

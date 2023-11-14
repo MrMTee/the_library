@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Book;
+use App\Model\Followup;
+use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -25,5 +27,8 @@ class BookCrudController extends AbstractCrudController
         yield TextField::new('title');
         yield AssociationField::new('Movies');
      
+        yield ChoiceField::new('followup')->setChoices(
+            Followup::cases()
+        );
     }
 }
