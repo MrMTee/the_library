@@ -22,6 +22,7 @@
 									{{ movie.year|date('Y') }}</span>
 								<p>{{ movie.plot }}</p>
 								<a class="btn btn-primary" href="movie/{{ movie.id }}">View more</a>
+								<a class="btn" href="/admin?crudAction=edit&crudControllerFqcn=App%5CController%5CAdmin%5CMovieCrudController&entityId={{ movie.id }}">Edit</a>
 							</div>
 						</div>
 					</div>
