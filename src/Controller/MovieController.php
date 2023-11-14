@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Api\Client\ApiClientInterface;
-use App\Entity\Movie;
 use App\Model\Followup;
 use App\Repository\MovieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,11 +20,7 @@ class MovieController extends AbstractController
     {
         $sections = array_map(
             function ($state) {
-                $movies = $this->movieRepository->findByFollowUp($state);
-                foreach($movies as $movie){
-                    dump($movie->getBooks());
-                }
-                return $movies;
+                return $this->movieRepository->findByFollowUp($state);
             },
             array_column(Followup::cases(), 'value', 'value')
         );
