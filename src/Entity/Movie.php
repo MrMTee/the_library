@@ -33,7 +33,7 @@ class Movie
     private ?string $Director = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $Year = null;
+    private ?\DateTime $Year = null;
 
     #[ORM\ManyToMany(targetEntity: Book::class, mappedBy: 'Movies')]
     private Collection $books;
@@ -116,12 +116,12 @@ class Movie
         return $this;
     }
 
-    public function getYear(): ?\DateTimeImmutable
+    public function getYear(): ?\DateTime
     {
         return $this->Year;
     }
 
-    public function setYear(\DateTimeImmutable $Year): static
+    public function setYear(\DateTime $Year): static
     {
         $this->Year = $Year;
 
