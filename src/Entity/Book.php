@@ -28,6 +28,9 @@ class Book
     #[ORM\ManyToMany(targetEntity: Person::class)]
     private Collection $Author;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Comment $Comment = null;
+
     public function __construct()
     {
         $this->Movies = new ArrayCollection();
@@ -112,6 +115,18 @@ class Book
     public function removeAuthor(Person $author): static
     {
         $this->Author->removeElement($author);
+
+        return $this;
+    }
+
+    public function getComment(): ?Comment
+    {
+        return $this->Comment;
+    }
+
+    public function setComment(?Comment $Comment): static
+    {
+        $this->Comment = $Comment;
 
         return $this;
     }
