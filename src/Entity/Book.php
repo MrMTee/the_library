@@ -25,9 +25,13 @@ class Book
     #[ORM\Column(length: 255, enumType: Followup::class, options: ['default' => 'Todo'], nullable: true)]
     private ?Followup $FollowUp = null;
 
+    #[ORM\ManyToMany(targetEntity: Person::class)]
+    private Collection $Author;
+
     public function __construct()
     {
         $this->Movies = new ArrayCollection();
+        $this->Author = new ArrayCollection();
     }
 
     public function __toString()
@@ -84,6 +88,30 @@ class Book
     public function setFollowUp(?Followup $FollowUp): static
     {
         $this->FollowUp = $FollowUp;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Person>
+     */
+    public function getAuthor(): Collection
+    {
+        return $this->Author;
+    }
+
+    public function addAuthor(Person $author): static
+    {
+        if (!$this->Author->contains($author)) {
+            $this->Author->add($author);
+        }
+
+        return $this;
+    }
+
+    public function removeAuthor(Person $author): static
+    {
+        $this->Author->removeElement($author);
 
         return $this;
     }

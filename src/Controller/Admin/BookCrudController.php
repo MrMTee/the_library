@@ -26,6 +26,7 @@ class BookCrudController extends AbstractCrudController
     {
         yield TextField::new('title');
         yield AssociationField::new('Movies');
+        yield AssociationField::new('Author');
      
         yield ChoiceField::new('followup')->setChoices(
             Followup::cases()
